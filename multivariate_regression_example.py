@@ -555,9 +555,15 @@ def multivariate_regression_experiments():
 
             true_features, true_labels, _ = generalized_machine_learning_initialization(simple_f, (0, 10), 0, 25)
 
+            # Loss rates relative to testing set
+            testing_loss_hypothesis_function = l2_norm_error(hypothesis_function(testing_features), testing_labels)
+
+            testing_loss_wstar_function = l2_norm_error(
+                closed_solution_hypothesis_function_multivariate(testing_features), testing_labels)
+
             # Now plot with testing features
             plot_experiments(hypothesis_function, testing_features, testing_labels, loss_rate_hypothesis_function,
-                             closed_solution_hypothesis_function_multivariate, true_features, true_labels, loss_rate_wstar_hypothesis_function, 1)
+                             closed_solution_hypothesis_function_multivariate, true_features, true_labels, loss_rate_wstar_hypothesis_function, 1, testing_loss_hypothesis_function, testing_loss_wstar_function, training_features, training_labels)
 
             # Now for more noise, but same hypothesis class and training set size experiment 1.
 
@@ -593,9 +599,15 @@ def multivariate_regression_experiments():
                 closed_solution_hypothesis_function_multivariate(validation_features), validation_labels)
             testing_features, testing_labels, _ = generalized_machine_learning_initialization(simple_f, (0, 10), 5, 25)
 
+            # Loss rates relative to testing set
+            testing_loss_hypothesis_function = l2_norm_error(hypothesis_function(testing_features), testing_labels)
+
+            testing_loss_wstar_function = l2_norm_error(
+                closed_solution_hypothesis_function_multivariate(testing_features), testing_labels)
+
             # Now plot with testing features
             true_features, true_labels, _ = generalized_machine_learning_initialization(simple_f, (0, 10), 0, 25)
-            plot_experiments(hypothesis_function, testing_features, testing_labels, loss_rate_hypothesis_function, closed_solution_hypothesis_function_multivariate, true_features, true_labels, loss_rate_wstar_hypothesis_function, 2)
+            plot_experiments(hypothesis_function, testing_features, testing_labels, loss_rate_hypothesis_function, closed_solution_hypothesis_function_multivariate, true_features, true_labels, loss_rate_wstar_hypothesis_function, 2, testing_loss_hypothesis_function, testing_loss_wstar_function, training_features, training_labels)
 
     def multivariate_experiment_2():
             # Experiment 2, larger training set provides a better learned function than a smalelr one, given teh same level of noise and hypothesis class
@@ -632,15 +644,21 @@ def multivariate_regression_experiments():
                 closed_solution_hypothesis_function_multivariate(validation_features), validation_labels)
             testing_features, testing_labels, _ = generalized_machine_learning_initialization(simple_f, (0, 10), 2.5, 250)
 
+            # Loss rates relative to testing set
+            testing_loss_hypothesis_function = l2_norm_error(hypothesis_function(testing_features), testing_labels)
+
+            testing_loss_wstar_function = l2_norm_error(
+                closed_solution_hypothesis_function_multivariate(testing_features), testing_labels)
+
             # Now plot with testing features
             true_features, true_labels, _ = generalized_machine_learning_initialization(simple_f, (0, 10), 0, 250)
             plot_experiments(hypothesis_function, testing_features, testing_labels, loss_rate_hypothesis_function,
-                             closed_solution_hypothesis_function_multivariate, true_features, true_labels, loss_rate_wstar_hypothesis_function, 3)
+                             closed_solution_hypothesis_function_multivariate, true_features, true_labels, loss_rate_wstar_hypothesis_function, 3, testing_loss_hypothesis_function, testing_loss_wstar_function, training_features, training_labels)
 
     def multivariate_experiment_3():
             # Experiment 3, a function with too many parameters (e.g., a polynomial of very high degree) has a tendency to overfit, especially on small datasets
 
-            data_x, data_y, w = generalized_machine_learning_initialization(simple_f, (0, 10), 2.5, 25)
+            data_x, data_y, w = generalized_machine_learning_initialization(simple_f, (0, 10), 2.5, 10)
             training_set, validation_set, hypothesis_function = generalized_supervised_machine_learning_initialization(
                 data_x, data_y, w)
 
@@ -668,18 +686,23 @@ def multivariate_regression_experiments():
             loss_rate_hypothesis_function = post_error
             loss_rate_wstar_hypothesis_function = l2_norm_error(
                 closed_solution_hypothesis_function_multivariate(validation_features), validation_labels)
-            testing_features, testing_labels, _ = generalized_machine_learning_initialization(simple_f, (0, 10), 2.5, 25)
+            testing_features, testing_labels, _ = generalized_machine_learning_initialization(simple_f, (0, 10), 2.5, 10)
+
+            # Loss rates relative to testing set
+            testing_loss_hypothesis_function = l2_norm_error(hypothesis_function(testing_features), testing_labels)
+
+            testing_loss_wstar_function = l2_norm_error(closed_solution_hypothesis_function_multivariate(testing_features), testing_labels)
 
             # Now plot with testing features
-            true_features, true_labels, _ = generalized_machine_learning_initialization(simple_f, (0, 10), 0, 25)
+            true_features, true_labels, _ = generalized_machine_learning_initialization(simple_f, (0, 10), 0, 10)
 
             plot_experiments(hypothesis_function, testing_features, testing_labels, loss_rate_hypothesis_function,
-                             closed_solution_hypothesis_function_multivariate, true_features, true_labels, loss_rate_wstar_hypothesis_function, 4)
+                             closed_solution_hypothesis_function_multivariate, true_features, true_labels, loss_rate_wstar_hypothesis_function, 4, testing_loss_hypothesis_function, testing_loss_wstar_function, training_features, training_labels)
 
     def multivariate_experiment_4():
             # Experiment 4, L_2 norm regularization can help avoid overfitting
 
-            data_x, data_y, w = generalized_machine_learning_initialization(simple_f, (0, 10), 2.5, 25)
+            data_x, data_y, w = generalized_machine_learning_initialization(simple_f, (0, 10), 2.5, 10)
             training_set, validation_set, hypothesis_function = generalized_supervised_machine_learning_initialization(
                 data_x, data_y, w)
 
@@ -710,13 +733,20 @@ def multivariate_regression_experiments():
             loss_rate_hypothesis_function = post_error
             loss_rate_wstar_hypothesis_function = total_l2_norm_loss_with_regularization(
                 closed_solution_hypothesis_function_multivariate(validation_features), validation_labels, regularizer)
-            testing_features, testing_labels, _ = generalized_machine_learning_initialization(simple_f, (0, 10), 2.5, 25)
+            testing_features, testing_labels, _ = generalized_machine_learning_initialization(simple_f, (0, 10), 2.5, 10)
+
+
+            # Loss rates relative to testing set
+            testing_loss_hypothesis_function = l2_norm_error(hypothesis_function(testing_features), testing_labels)
+
+            testing_loss_wstar_function = total_l2_norm_loss_with_regularization(
+                closed_solution_hypothesis_function_multivariate(testing_features), testing_labels, regularizer)
 
             # Now plot with testing features
-            true_features, true_labels, _ = generalized_machine_learning_initialization(simple_f, (0, 10), 0, 25)
+            true_features, true_labels, _ = generalized_machine_learning_initialization(simple_f, (0, 10), 0, 10)
 
             plot_experiments(hypothesis_function, testing_features, testing_labels, loss_rate_hypothesis_function,
-                             closed_solution_hypothesis_function_multivariate, true_features, true_labels, loss_rate_wstar_hypothesis_function, 5)
+                             closed_solution_hypothesis_function_multivariate, true_features, true_labels, loss_rate_wstar_hypothesis_function, 5, testing_loss_hypothesis_function, testing_loss_wstar_function, training_features, training_labels)
 
     multivariate_experiment_1()
     multivariate_experiment_2()
@@ -726,7 +756,7 @@ def multivariate_regression_experiments():
 
 
 def plot_experiments(hypothesis_function, testing_features, testing_labels, loss_rate_hypothesis_function,
-                     closed_solution_hypothesis_function_multivariate, true_features, true_labels, loss_rate_wstar_hypothesis_function, plot_number):
+                     closed_solution_hypothesis_function_multivariate, true_features, true_labels, loss_rate_wstar_hypothesis_function, plot_number, testing_loss_hypothesis_function, testing_loss_wstar_function, training_features, training_labels):
     """
     Goal: Plot the testing data points with noise added independently, plot the relevant hypothesis functions, and plot the true function (note the true function can just be plotted by generating test data again but with no noise then fitting the function into it, or by iterating through a true function, or by using matrix multiplication with valid dimensions, where the coefficients of the true function are a tensor of m rows if m coefficients, from w_0, ..., w_m.)
     :param hypothesis_function: The hypothesis function to evaluate.
@@ -761,11 +791,21 @@ def plot_experiments(hypothesis_function, testing_features, testing_labels, loss
     # Plot w* hypothesis function values
     plt.plot(testing_features, Y_wstar, label='w* Hypothesis Function', color='blue')
 
+    testing_loss_hypothesis_function,loss_rate_hypothesis_function,testing_loss_wstar_function,loss_rate_wstar_hypothesis_function
+
     # Annotating loss, also added some coloring
-    plt.text(0.05, 0.95, f'Loss (Learned Hypothesis): {loss_rate_hypothesis_function:.4f}',
+    plt.text(0.05, 0.95, f'Loss of (Learned Hypothesis) wrt testing set: {testing_loss_hypothesis_function:.4f}',
              transform=plt.gca().transAxes, fontsize=12, verticalalignment='top', color='red')
-    plt.text(0.05, 0.90, f'Loss (w* Hypothesis): {loss_rate_wstar_hypothesis_function:.4f}',
+    plt.text(0.05, 0.90, f'Loss of (Learned Hypothesis) wrt validation set: {loss_rate_hypothesis_function:.4f}',
+             transform=plt.gca().transAxes, fontsize=12, verticalalignment='top', color='orange')
+    plt.text(0.05, 0.85, f'Loss of (Learned Hypothesis) wrt training set: {l2_norm_error(hypothesis_function(training_features), training_labels):.4f}',
+             transform=plt.gca().transAxes, fontsize=12, verticalalignment='top', color='crimson')
+    plt.text(0.05, 0.80, f'Loss of (w* Hypothesis) wrt testing set: {testing_loss_wstar_function:.4f}',
              transform=plt.gca().transAxes, fontsize=12, verticalalignment='top', color='blue')
+    plt.text(0.05, 0.75, f'Loss of (w* Hypothesis) wrt validation set: {loss_rate_wstar_hypothesis_function:.4f}',
+             transform=plt.gca().transAxes, fontsize=12, verticalalignment='top', color='cyan')
+    plt.text(0.05, 0.70, f'Loss of (w* Hypothesis) wrt training set: {l2_norm_error(closed_solution_hypothesis_function_multivariate(training_features), training_labels):.4f}',
+             transform=plt.gca().transAxes, fontsize=12, verticalalignment='top', color='navy')
 
     plt.title('Comparison of the True Function, a learned hypothesis function, and the w* hypothesis function')
     plt.xlabel('x')
