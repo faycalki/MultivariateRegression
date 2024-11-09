@@ -100,17 +100,17 @@ def closed_form_multivariate_solution(X, Y, num_parameters_excluding_intercept_t
 ## Experimental Results
 
 ### 1. Impact of Noise on Model Performance
-![Default Noise Level](./assets/plot_experiment_1_4.png)
-![Increased Noise Level](./assets/plot_experiment_2_3.png)
+![Default Noise Level](./assets/plot_experiment_1.png)
+![Increased Noise Level](./assets/plot_experiment_2.png)
 
 ### 2. Training Set Size Impact
-![Large Training Set](./assets/plot_experiment_3_3.png)
+![Large Training Set](./assets/plot_experiment_3.png)
 
 ### 3. Parameter Complexity and Overfitting
-![Overfitting Example](./assets/plot_experiment_4_5.png)
+![Overfitting Example](./assets/plot_experiment_4.png)
 
 ### 4. L2 Regularization Effects
-![Regularization Effects](./assets/plot_experiment_5_3.png)
+![Regularization Effects](./assets/plot_experiment_5.png)
 
 ## Directory Structure
 ```
